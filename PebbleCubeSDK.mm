@@ -13,6 +13,14 @@
 #import "JSON.h"
 #import "consts.h"
 
+@interface PebbleCubeSDK()
+
+- (void) SendEvent: (NSMutableDictionary*) info;
+
+@end
+
+// ------------------------------------------------------
+
 @implementation PebbleCubeSDK
 
 @synthesize xmlParser;

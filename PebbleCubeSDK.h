@@ -38,9 +38,6 @@
 				 withKey: (NSString*) api_key 
 				 andTime: (NSString*) time;
 
-
-- (void) SendEvent: (NSMutableDictionary*) info;
-
 - (void) SendEvent: (NSString*) code
 			 value: (NSObject*) value
 		   andTime: (NSString*) time;
