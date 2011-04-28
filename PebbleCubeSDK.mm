@@ -23,6 +23,7 @@
 
 - (void) SendEvent: (NSMutableDictionary*) info;
 - (void) FireEvent;
+- (NSString*) MakeStringHtmlSafe:(NSString*) str;
 
 @end
 
@@ -276,7 +277,32 @@
 	NSMutableDictionary* info = [[[NSMutableDictionary alloc] init] autorelease];
 	
 	[info setObject:code forKey:@"code"];
-	[info setObject:value forKey:@"value"];
+    
+    if ([value isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *valueDict = (NSDictionary*)value;
+        
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        
+        NSError* error = nil;
+		NSString* jsonOut = [writer stringWithObject:valueDict error:&error];
+		
+        if (error != nil)
+        {
+            Log(@"Parsing event array fail: %@", [error localizedDescription]);
+        }
+        
+		jsonOut = [self MakeStringHtmlSafe:jsonOut];
+        Log(@"jsonOut: %@", jsonOut);
+		
+        [info setObject:jsonOut forKey:@"value"];
+        
+        [writer release];
+    }
+    else
+    {
+        [info setObject:value forKey:@"value"];
+    }
 	[info setObject:time forKey:@"time"];
 	
 	[self SendEvent:info];
@@ -315,15 +341,9 @@
 		[dictArray addObject: eventInfo];
 		
 		NSString* jsonOut = [writer stringWithObject:dictArray error:&error];
-		
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"}" withString:@"%7D"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"[" withString:@"%5B"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"]" withString:@"%5D"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
-		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
-		
+        
+        jsonOut = [self MakeStringHtmlSafe:jsonOut];
+        
 		NSString* sKey = [self sessionKey];
 		Log(@"sKey: %@", sKey);
 		
@@ -352,6 +372,21 @@
 		[dictArray release];
 	}
 	[pool drain];
+}
+
+- (NSString*) MakeStringHtmlSafe:(NSString*) str
+{
+    NSString *safeString = [NSString stringWithString:str];
+    
+    safeString = [safeString stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"}" withString:@"%7D"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"[" withString:@"%5B"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"]" withString:@"%5D"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
+    safeString = [safeString stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+    
+    return safeString;
 }
 
 
