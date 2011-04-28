@@ -277,32 +277,7 @@
 	NSMutableDictionary* info = [[[NSMutableDictionary alloc] init] autorelease];
 	
 	[info setObject:code forKey:@"code"];
-    
-    if ([value isKindOfClass:[NSDictionary class]])
-    {
-        NSDictionary *valueDict = (NSDictionary*)value;
-        
-        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-        
-        NSError* error = nil;
-		NSString* jsonOut = [writer stringWithObject:valueDict error:&error];
-		
-        if (error != nil)
-        {
-            Log(@"Parsing event array fail: %@", [error localizedDescription]);
-        }
-        
-		jsonOut = [self MakeStringHtmlSafe:jsonOut];
-        Log(@"jsonOut: %@", jsonOut);
-		
-        [info setObject:jsonOut forKey:@"value"];
-        
-        [writer release];
-    }
-    else
-    {
-        [info setObject:value forKey:@"value"];
-    }
+    [info setObject:value forKey:@"value"];
 	[info setObject:time forKey:@"time"];
 	
 	[self SendEvent:info];
@@ -342,10 +317,11 @@
 		
 		NSString* jsonOut = [writer stringWithObject:dictArray error:&error];
         
+        Log(@"jsonOut: %@", jsonOut);
         jsonOut = [self MakeStringHtmlSafe:jsonOut];
         
 		NSString* sKey = [self sessionKey];
-		Log(@"sKey: %@", sKey);
+		//Log(@"sKey: %@", sKey);
 		
 		NSString* urlString;
 
@@ -355,6 +331,7 @@
 							   , sKey
 							   , jsonOut
 							   ];
+        Log(@"urlString: %@", urlString);
 		
 		@synchronized(response)
 		{
