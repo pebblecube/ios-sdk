@@ -16,6 +16,7 @@
 @interface PebbleCubeSDK()
 
 - (void) SendEvent: (NSMutableDictionary*) info;
+- (void) FireEvent;
 
 @end
 

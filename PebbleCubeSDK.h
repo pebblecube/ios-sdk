@@ -41,7 +41,4 @@
 - (void) SendEvent: (NSString*) code
 			 value: (NSObject*) value
 		   andTime: (NSString*) time;
-			
-- (void) FireEvent;
-
 @end
