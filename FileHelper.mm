@@ -86,6 +86,7 @@
 			[records addObject: event];
 		}
 	}
+    [parser release];
 }
 
 @end
