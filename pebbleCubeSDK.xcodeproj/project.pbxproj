@@ -28,12 +28,12 @@
 		B92F3FD112C97B5900469F22 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = B92F3FBE12C97B5900469F22 /* SBJsonTokeniser.m */; };
 		B92F3FD212C97B5900469F22 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = B92F3FBF12C97B5900469F22 /* SBJsonWriter.h */; };
 		B92F3FD312C97B5900469F22 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B92F3FC012C97B5900469F22 /* SBJsonWriter.m */; };
-		B9BBF5EE131F705C004EEEF5 /* FileHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = B9BBF5EC131F705C004EEEF5 /* FileHelper.h */; };
-		B9BBF5EF131F705C004EEEF5 /* FileHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9BBF5ED131F705C004EEEF5 /* FileHelper.mm */; };
-		B9D983FC12E7054200A254A9 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = B9D983F812E7054200A254A9 /* Event.h */; };
-		B9D983FD12E7054200A254A9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D983F912E7054200A254A9 /* Event.m */; };
+		B9BBF5EE131F705C004EEEF5 /* PCFileHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */; };
+		B9BBF5EF131F705C004EEEF5 /* PCFileHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */; };
+		B9D983FC12E7054200A254A9 /* PCEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B9D983F812E7054200A254A9 /* PCEvent.h */; };
+		B9D983FD12E7054200A254A9 /* PCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D983F912E7054200A254A9 /* PCEvent.m */; };
 		B9E91F6513161C860080622F /* pebbleCubeSDK_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = B9E91F6313161C860080622F /* pebbleCubeSDK_Prefix.pch */; };
-		B9ED9DBF130CE9F1001E63B2 /* consts.h in Headers */ = {isa = PBXBuildFile; fileRef = B9ED9DBD130CE9F1001E63B2 /* consts.h */; };
+		B9ED9DBF130CE9F1001E63B2 /* PCConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = B9ED9DBD130CE9F1001E63B2 /* PCConsts.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,12 +61,12 @@
 		B92F3FBF12C97B5900469F22 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		B92F3FC012C97B5900469F22 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		B93231DA12727E0100D66304 /* libPebbleCube_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPebbleCube_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9BBF5EC131F705C004EEEF5 /* FileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelper.h; sourceTree = "<group>"; };
-		B9BBF5ED131F705C004EEEF5 /* FileHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileHelper.mm; sourceTree = "<group>"; };
-		B9D983F812E7054200A254A9 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		B9D983F912E7054200A254A9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFileHelper.h; sourceTree = "<group>"; };
+		B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PCFileHelper.mm; sourceTree = "<group>"; };
+		B9D983F812E7054200A254A9 /* PCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCEvent.h; sourceTree = "<group>"; };
+		B9D983F912E7054200A254A9 /* PCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCEvent.m; sourceTree = "<group>"; };
 		B9E91F6313161C860080622F /* pebbleCubeSDK_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pebbleCubeSDK_Prefix.pch; sourceTree = "<group>"; };
-		B9ED9DBD130CE9F1001E63B2 /* consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = consts.h; sourceTree = "<group>"; };
+		B9ED9DBD130CE9F1001E63B2 /* PCConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCConsts.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,11 +113,11 @@
 				B91F065D128630DA003DDBE1 /* PebbleCubeSDK.h */,
 				B91F065E128630DB003DDBE1 /* PebbleCubeSDK.mm */,
 				B9E91F6313161C860080622F /* pebbleCubeSDK_Prefix.pch */,
-				B9D983F812E7054200A254A9 /* Event.h */,
-				B9D983F912E7054200A254A9 /* Event.m */,
-				B9BBF5EC131F705C004EEEF5 /* FileHelper.h */,
-				B9BBF5ED131F705C004EEEF5 /* FileHelper.mm */,
-				B9ED9DBD130CE9F1001E63B2 /* consts.h */,
+				B9D983F812E7054200A254A9 /* PCEvent.h */,
+				B9D983F912E7054200A254A9 /* PCEvent.m */,
+				B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */,
+				B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */,
+				B9ED9DBD130CE9F1001E63B2 /* PCConsts.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -175,10 +175,10 @@
 				B92F3FCE12C97B5900469F22 /* SBJsonStreamWriterState.h in Headers */,
 				B92F3FD012C97B5900469F22 /* SBJsonTokeniser.h in Headers */,
 				B92F3FD212C97B5900469F22 /* SBJsonWriter.h in Headers */,
-				B9D983FC12E7054200A254A9 /* Event.h in Headers */,
-				B9ED9DBF130CE9F1001E63B2 /* consts.h in Headers */,
+				B9D983FC12E7054200A254A9 /* PCEvent.h in Headers */,
+				B9ED9DBF130CE9F1001E63B2 /* PCConsts.h in Headers */,
 				B9E91F6513161C860080622F /* pebbleCubeSDK_Prefix.pch in Headers */,
-				B9BBF5EE131F705C004EEEF5 /* FileHelper.h in Headers */,
+				B9BBF5EE131F705C004EEEF5 /* PCFileHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,8 +262,8 @@
 				B92F3FCF12C97B5900469F22 /* SBJsonStreamWriterState.m in Sources */,
 				B92F3FD112C97B5900469F22 /* SBJsonTokeniser.m in Sources */,
 				B92F3FD312C97B5900469F22 /* SBJsonWriter.m in Sources */,
-				B9D983FD12E7054200A254A9 /* Event.m in Sources */,
-				B9BBF5EF131F705C004EEEF5 /* FileHelper.mm in Sources */,
+				B9D983FD12E7054200A254A9 /* PCEvent.m in Sources */,
+				B9BBF5EF131F705C004EEEF5 /* PCFileHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

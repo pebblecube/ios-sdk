@@ -1,5 +1,5 @@
 //
-//  Connect.mm
+//  PebbleCubeSDK.mm
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 7/11/10.
@@ -9,9 +9,9 @@
 #define IGNORE_CERT_AUTHENTICATION
 
 #import "PebbleCubeSDK.h"
-#import "FileHelper.h"
+#import "PCFileHelper.h"
 #import "JSON.h"
-#import "consts.h"
+#import "PCConsts.h"
 
 @interface PebbleCubeSDK()
 
@@ -23,7 +23,6 @@
 
 - (void) SendEvent: (NSMutableDictionary*) info;
 - (void) FireEvent;
-- (NSString*) MakeStringHtmlSafe:(NSString*) str;
 
 @end
 
@@ -49,7 +48,7 @@
 		_eventArray = [[NSMutableArray alloc] init];
 		if (saveEventsToStorage)
 		{
-			[FileHelper Load:_eventArray];
+			[PCFileHelper Load:_eventArray];
 		}
 		
 		[NSTimer scheduledTimerWithTimeInterval:4 
@@ -60,8 +59,6 @@
 		
 		[self setApiSignature:@""];
 		[self setApiKey:@""];
-        
-        Log(@"development-3-ge540336");
     }
     return self;
 }
@@ -76,7 +73,7 @@
 			 andVersion: (NSString*) version
 				andTime: (NSString*) time;
 {
-	Log(@"+MakeConnection...");
+	Log(@"+MakeConnection");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	if ([sessionKey length] <= 0)
@@ -188,7 +185,6 @@
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    
 	Log(@"ERROR with theConenction: \n%@", [error localizedDescription]);
 	[connection release];
 	@synchronized(response)
@@ -244,7 +240,7 @@
 			[_eventArray removeObjectAtIndex:0];
 			if (saveEventsToStorage)
 			{
-				[FileHelper Save:_eventArray];
+				[PCFileHelper Save:_eventArray];
 			}
 		}
 		eventSendInProgress = NO;
@@ -256,7 +252,7 @@
 	Log(@"+SendEvent");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	Event *event = [[[Event alloc] init] autorelease];
+	PCEvent *event = [[[PCEvent alloc] init] autorelease];
 
 	[event setInfo: info];
 
@@ -265,7 +261,7 @@
 		[_eventArray addObject: event];
 		if (saveEventsToStorage)
 		{
-			[FileHelper Save:_eventArray];
+			[PCFileHelper Save:_eventArray];
 		}
 	}
 	
@@ -280,7 +276,7 @@
 	NSMutableDictionary* info = [[[NSMutableDictionary alloc] init] autorelease];
 	
 	[info setObject:code forKey:@"code"];
-    [info setObject:value forKey:@"value"];
+	[info setObject:value forKey:@"value"];
 	[info setObject:time forKey:@"time"];
 	
 	[self SendEvent:info];
@@ -296,7 +292,7 @@
 		
 		Log(@"fire event, event count: %d", [_eventArray count]);
 		
-		Event* event;
+		PCEvent* event;
 		NSMutableDictionary* eventInfo;
 		NSString* api_sig;
 		NSString* api_key;
@@ -319,12 +315,17 @@
 		[dictArray addObject: eventInfo];
 		
 		NSString* jsonOut = [writer stringWithObject:dictArray error:&error];
-        
-        Log(@"jsonOut: %@", jsonOut);
-        jsonOut = [self MakeStringHtmlSafe:jsonOut];
-        
+		
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"}" withString:@"%7D"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"[" withString:@"%5B"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"]" withString:@"%5D"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
+		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+		
 		NSString* sKey = [self sessionKey];
-		//Log(@"sKey: %@", sKey);
+		Log(@"sKey: %@", sKey);
 		
 		NSString* urlString;
 
@@ -334,7 +335,6 @@
 							   , sKey
 							   , jsonOut
 							   ];
-        Log(@"urlString: %@", urlString);
 		
 		@synchronized(response)
 		{
@@ -352,21 +352,6 @@
 		[dictArray release];
 	}
 	[pool drain];
-}
-
-- (NSString*) MakeStringHtmlSafe:(NSString*) str
-{
-    NSString *safeString = [NSString stringWithString:str];
-    
-    safeString = [safeString stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"}" withString:@"%7D"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"[" withString:@"%5B"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"]" withString:@"%5D"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
-    safeString = [safeString stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
-    
-    return safeString;
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  FileHelper.h
+//  PCFileHelper.h
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 6/01/11.
@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FileHelper : NSObject 
+@interface PCFileHelper : NSObject 
 {
 
 }

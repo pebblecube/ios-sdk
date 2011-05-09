@@ -1,15 +1,15 @@
 //
-//  Event.m
+//  PCEvent.m
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 19/01/11.
 //  Copyright 2011 PebbleCube. All rights reserved.
 //
 
-#import "Event.h"
+#import "PCEvent.h"
 
 
-@implementation Event
+@implementation PCEvent
 
 @synthesize info;
 

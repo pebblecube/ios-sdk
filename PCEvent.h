@@ -1,5 +1,5 @@
 //
-//  Event.h
+//  PCEvent.h
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 19/01/11.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Event : NSObject 
+@interface PCEvent : NSObject 
 {
 	NSMutableDictionary* info;
 }

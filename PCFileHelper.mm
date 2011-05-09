@@ -1,16 +1,16 @@
 //
-//  FileHelper.m
+//  PCFileHelper.m
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 6/01/11.
 //  Copyright 2011 PebbleCube. All rights reserved.
 
-#import "FileHelper.h"
+#import "PCFileHelper.h"
 #import "JSON.h"
-#import "Event.h"
-#import "consts.h"
+#import "PCEvent.h"
+#import "PCConsts.h"
 
-@implementation FileHelper
+@implementation PCFileHelper
 
 + (void) Save:(NSMutableArray*) records
 {
@@ -19,7 +19,7 @@
 	NSError* error = nil;
 	NSMutableArray* dictArray = [[NSMutableArray alloc] init];
 	
-	for (Event *event in records)
+	for (PCEvent *event in records)
 	{
 		[dictArray addObject: [event info]];
 	}
@@ -77,7 +77,7 @@
 		[info setObject:[eventObj objectForKey:@"value"] forKey:@"value"];
 		[info setObject:[eventObj objectForKey:@"time"] forKey:@"time"];
 		
-		Event *event = [[[Event alloc] init] autorelease];
+		PCEvent *event = [[[PCEvent alloc] init] autorelease];
 		
 		[event setInfo: info];
 		
@@ -86,7 +86,6 @@
 			[records addObject: event];
 		}
 	}
-    [parser release];
 }
 
 @end

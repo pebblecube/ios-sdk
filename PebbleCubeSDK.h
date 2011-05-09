@@ -1,5 +1,5 @@
 //
-//  Connect.h
+//  PebbleCubeSDK.h
 //  PebbleCubeSDK
 //
 //  Created by Richard Adem on 7/11/10.
@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Event.h"
+#import "PCEvent.h"
 
 @interface PebbleCubeSDK : NSObject
 {
