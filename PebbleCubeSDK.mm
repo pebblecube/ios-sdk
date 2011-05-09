@@ -15,6 +15,12 @@
 
 @interface PebbleCubeSDK()
 
+@property(nonatomic, retain) NSXMLParser *xmlParser;
+@property(nonatomic, retain) NSString* apiSignature;
+@property(nonatomic, retain) NSString* apiKey;
+@property(nonatomic, retain) NSString* sessionKey;
+@property(nonatomic, retain) NSMutableArray* eventArray;
+
 - (void) SendEvent: (NSMutableDictionary*) info;
 - (void) FireEvent;
 

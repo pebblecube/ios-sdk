@@ -21,12 +21,6 @@
 	BOOL saveEventsToStorage;
 }
 
-@property(nonatomic, retain) NSXMLParser *xmlParser;
-@property(nonatomic, retain) NSString* apiSignature;
-@property(nonatomic, retain) NSString* apiKey;
-@property(nonatomic, retain) NSString* sessionKey;
-@property(nonatomic, retain) NSMutableArray* eventArray;
-
 - (id)initWithSaveToStorage: (BOOL) save;
 
 - (void) MakeConnection: (NSString*) api_sig 
