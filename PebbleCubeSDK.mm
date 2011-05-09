@@ -60,6 +60,8 @@
 		
 		[self setApiSignature:@""];
 		[self setApiKey:@""];
+        
+        Log(@"development-3-ge540336");
     }
     return self;
 }
@@ -74,7 +76,7 @@
 			 andVersion: (NSString*) version
 				andTime: (NSString*) time;
 {
-	Log(@"+MakeConnection");
+	Log(@"+MakeConnection...");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	if ([sessionKey length] <= 0)
@@ -186,6 +188,7 @@
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    
 	Log(@"ERROR with theConenction: \n%@", [error localizedDescription]);
 	[connection release];
 	@synchronized(response)
