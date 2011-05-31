@@ -32,7 +32,7 @@
 
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
-#import "../consts.h"
+#import "PCConsts.h"
 
 static NSMutableDictionary *stringCache;
 static NSDecimalNumber *notANumber;

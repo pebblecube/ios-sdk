@@ -13,6 +13,9 @@
 #import "JSON.h"
 #import "PCConsts.h"
 
+const NSInteger TYPE_EVENT = 0;
+const NSInteger TYPE_FUNCTION = 1;
+
 @interface PebbleCubeSDK()
 
 @property(nonatomic, retain) NSXMLParser *xmlParser;
@@ -35,6 +38,7 @@
 @synthesize apiSignature;
 @synthesize apiKey;
 @synthesize eventArray = _eventArray;
+@synthesize delegate;
 
 - (id)initWithSaveToStorage: (BOOL) save
 {
@@ -59,6 +63,7 @@
 		
 		[self setApiSignature:@""];
 		[self setApiKey:@""];
+        [self setDelegate: nil];
     }
     return self;
 }
@@ -210,18 +215,32 @@
     
 	NSDictionary *object = [parser objectWithString:json_string error:&error];
 	
-	Log(@"%@", [error description]);
+    if (error != nil)
+    {
+        Log(@"%@", [error description]);
+        error = nil;
+    }
 	
 	NSString *key = [object objectForKey:@"k"];
 	
 	if (key != nil)
 	{
 		[self setSessionKey:key];
-		Log(@"key: %@", key);
+		///Log(@"key: %@", key);
+        
+        if (self.delegate != nil)
+        {
+            [self.delegate SessionCreated];
+        }
 	}
 	else
 	{
-		Log(@"key not found");
+		//Log(@"key not found");
+        
+        if (self.delegate != nil)
+        {
+            [self.delegate RecevedResponce:object];
+        }
 	}
 
 	[json_string release];
@@ -278,6 +297,22 @@
 	[info setObject:code forKey:@"code"];
 	[info setObject:value forKey:@"value"];
 	[info setObject:time forKey:@"time"];
+    [info setObject:[NSNumber numberWithInt:TYPE_EVENT] forKey:@"type"];
+	
+	[self SendEvent:info];
+}
+
+- (void) GetFunction: (NSString*) code
+                vars: (NSObject*) value
+{
+    NSMutableDictionary* info = [[[NSMutableDictionary alloc] init] autorelease];
+	
+	[info setObject:code forKey:@"code"];
+    if (value != nil)
+    {
+        [info setObject:value forKey:@"vars"];
+    }
+	[info setObject:[NSNumber numberWithInt:TYPE_FUNCTION] forKey:@"type"];
 	
 	[self SendEvent:info];
 }
@@ -290,12 +325,12 @@
 	{
 		eventSendInProgress = YES;
 		
-		Log(@"fire event, event count: %d", [_eventArray count]);
-		
+        BOOL errorInData = NO;
 		PCEvent* event;
 		NSMutableDictionary* eventInfo;
 		NSString* api_sig;
 		NSString* api_key;
+        NSInteger type;
 		@synchronized(_eventArray)
 		{
 			event = [[_eventArray objectAtIndex:0] retain];
@@ -304,6 +339,18 @@
 			api_sig = [self apiSignature];
 			api_key = [self apiKey];
 			
+            Log(@"fire event: %@, event count: %d", [eventInfo objectForKey:@"code"] , [_eventArray count]);
+            
+            if ([eventInfo objectForKey:@"type"] != nil)
+            {
+                NSNumber *typeNum = [eventInfo objectForKey:@"type"];
+                type = [typeNum intValue];
+            }
+            else
+            {
+                errorInData = YES;
+            }
+
 		}
 		
 		SBJsonWriter *writer = [[SBJsonWriter alloc] init];
@@ -312,9 +359,28 @@
 		NSMutableArray* dictArray;
 
 		dictArray = [[NSMutableArray alloc] init];
-		[dictArray addObject: eventInfo];
-		
-		NSString* jsonOut = [writer stringWithObject:dictArray error:&error];
+        NSString* jsonOut;
+        switch (type) 
+        {
+            case TYPE_EVENT:
+                [dictArray addObject: eventInfo];
+                jsonOut = [writer stringWithObject:dictArray error:&error];
+                break;
+                
+            case TYPE_FUNCTION:
+                if ([eventInfo objectForKey:@"vars"] != nil)
+                {
+                    [dictArray addObject: [eventInfo objectForKey:@"vars"]];
+                    jsonOut = [writer stringWithObject:dictArray error:&error];
+                }
+                else
+                {
+                    jsonOut = @"";
+                }
+                break;
+            default:
+                break;
+        }
 		
 		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
 		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
@@ -325,25 +391,84 @@
 		jsonOut = [jsonOut stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
 		
 		NSString* sKey = [self sessionKey];
-		Log(@"sKey: %@", sKey);
+		//Log(@"sKey: %@", sKey);
 		
-		NSString* urlString;
+		NSString *urlStr;
+        NSString *requestStr;
+        switch (type) 
+        {
+            case TYPE_EVENT:
+                urlStr = @"https://api.pebblecube.com/events/send";
+                requestStr = [NSString stringWithFormat:@"api_sig=%@&api_key=%@&session_key=%@&events=%@"
+                             , api_sig
+                             , api_key
+                             , sKey
+                             , jsonOut
+                             ];
+                break;
 
-		urlString = [NSString stringWithFormat:@"https://api.pebblecube.com/events/send?api_sig=%@&api_key=%@&session_key=%@&events=%@"
-							   , api_sig
-							   , api_key
-							   , sKey
-							   , jsonOut
-							   ];
+            case TYPE_FUNCTION:
+            {
+                requestStr = @"";
+                NSString *vars;
+                if ([jsonOut length] > 0)
+                {
+                    vars = [NSString stringWithFormat:@"&vars=%@", jsonOut];
+                }
+                else
+                {
+                    vars = @"";
+                }
+                urlStr = [NSString stringWithFormat:@"https://api.pebblecube.com/functions/execute?api_sig=%@&api_key=%@&code=%@%@"
+                          , api_sig
+                          , api_key
+                          , [eventInfo objectForKey:@"code"]
+                          , vars
+                          ];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        Log(@"urlStr: %@", urlStr);
+		
 		
 		@synchronized(response)
 		{
 			response = [[NSMutableData data] retain];
 		}
-		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]
-															   cachePolicy: NSURLRequestReloadIgnoringLocalCacheData 
-														   timeoutInterval: 60.0]; 
-		[request setHTTPMethod:@"POST"]; 
+        
+        //NSString *myRequestString = @"&name=Hello%20World&email=Ohai2u";
+        
+        //NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: urlString]]; 
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlStr]
+                                                               cachePolicy: NSURLRequestReloadIgnoringLocalCacheData 
+                                                           timeoutInterval: 60.0];
+        switch (type) 
+        {
+            case TYPE_EVENT:
+            {
+                NSData *requestData = [NSData dataWithBytes: [requestStr UTF8String] length: [requestStr length]];
+                [request setHTTPBody: requestData];
+                [request setHTTPMethod:@"POST"];
+            }
+                break;
+                
+            case TYPE_FUNCTION:
+                [request setHTTPMethod:@"GET"];
+                break;
+            default:
+                break;
+        }
+        
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+        
+        
+        // NSData *returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
+        /*
+          
+         */
 		
 		[[NSURLConnection alloc] initWithRequest:request delegate:self];
 		
@@ -366,6 +491,7 @@
 	[apiSignature release];
 	[apiKey release];
 	[_eventArray release];
+    [delegate release];
 	[super dealloc];
 }
 

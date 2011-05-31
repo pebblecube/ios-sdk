@@ -28,6 +28,8 @@
 		B92F3FD112C97B5900469F22 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = B92F3FBE12C97B5900469F22 /* SBJsonTokeniser.m */; };
 		B92F3FD212C97B5900469F22 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = B92F3FBF12C97B5900469F22 /* SBJsonWriter.h */; };
 		B92F3FD312C97B5900469F22 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B92F3FC012C97B5900469F22 /* SBJsonWriter.m */; };
+		B986F8F313920A7000DE6235 /* PCExtentions.h in Headers */ = {isa = PBXBuildFile; fileRef = B986F8F113920A7000DE6235 /* PCExtentions.h */; };
+		B986F8F413920A7000DE6235 /* PCExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = B986F8F213920A7000DE6235 /* PCExtentions.m */; };
 		B9BBF5EE131F705C004EEEF5 /* PCFileHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */; };
 		B9BBF5EF131F705C004EEEF5 /* PCFileHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */; };
 		B9D983FC12E7054200A254A9 /* PCEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B9D983F812E7054200A254A9 /* PCEvent.h */; };
@@ -61,6 +63,8 @@
 		B92F3FBF12C97B5900469F22 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		B92F3FC012C97B5900469F22 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		B93231DA12727E0100D66304 /* libPebbleCube_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPebbleCube_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B986F8F113920A7000DE6235 /* PCExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCExtentions.h; sourceTree = "<group>"; };
+		B986F8F213920A7000DE6235 /* PCExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCExtentions.m; sourceTree = "<group>"; };
 		B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFileHelper.h; sourceTree = "<group>"; };
 		B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PCFileHelper.mm; sourceTree = "<group>"; };
 		B9D983F812E7054200A254A9 /* PCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCEvent.h; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				B9BBF5EC131F705C004EEEF5 /* PCFileHelper.h */,
 				B9BBF5ED131F705C004EEEF5 /* PCFileHelper.mm */,
 				B9ED9DBD130CE9F1001E63B2 /* PCConsts.h */,
+				B986F8F113920A7000DE6235 /* PCExtentions.h */,
+				B986F8F213920A7000DE6235 /* PCExtentions.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 				B9ED9DBF130CE9F1001E63B2 /* PCConsts.h in Headers */,
 				B9E91F6513161C860080622F /* pebbleCubeSDK_Prefix.pch in Headers */,
 				B9BBF5EE131F705C004EEEF5 /* PCFileHelper.h in Headers */,
+				B986F8F313920A7000DE6235 /* PCExtentions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +271,7 @@
 				B92F3FD312C97B5900469F22 /* SBJsonWriter.m in Sources */,
 				B9D983FD12E7054200A254A9 /* PCEvent.m in Sources */,
 				B9BBF5EF131F705C004EEEF5 /* PCFileHelper.mm in Sources */,
+				B986F8F413920A7000DE6235 /* PCExtentions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

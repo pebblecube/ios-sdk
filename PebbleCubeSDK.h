@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PCEvent.h"
+#import "PCExtentions.h"
+
+@protocol PebbleCubeSDKDelegate;
 
 @interface PebbleCubeSDK : NSObject
 {
@@ -20,6 +23,8 @@
 	BOOL eventSendInProgress;
 	BOOL saveEventsToStorage;
 }
+
+@property (nonatomic, retain) id <PebbleCubeSDKDelegate> delegate;
 
 - (id)initWithSaveToStorage: (BOOL) save;
 
@@ -35,4 +40,14 @@
 - (void) SendEvent: (NSString*) code
 			 value: (NSObject*) value
 		   andTime: (NSString*) time;
+
+- (void) GetFunction: (NSString*) code
+                vars: (NSObject*) value;
+@end
+
+@protocol PebbleCubeSDKDelegate <NSObject>
+@optional
+- (void) SessionCreated;
+- (void) RecevedResponce:(NSDictionary*)responce;
+
 @end
