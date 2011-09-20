@@ -10,6 +10,8 @@
 #import "PCEvent.h"
 #import "PCExtentions.h"
 
+#define kPCReceivedResponce @"kPCReceivedResponce"
+
 @protocol PebbleCubeSDKDelegate;
 
 @interface PebbleCubeSDK : NSObject
@@ -48,6 +50,5 @@
 @protocol PebbleCubeSDKDelegate <NSObject>
 @optional
 - (void) SessionCreated;
-- (void) RecevedResponce:(NSDictionary*)responce;
 
 @end

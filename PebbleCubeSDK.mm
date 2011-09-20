@@ -237,10 +237,8 @@ const NSInteger TYPE_FUNCTION = 1;
 	{
 		//Log(@"key not found");
         
-        if (self.delegate != nil)
-        {
-            [self.delegate RecevedResponce:object];
-        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPCReceivedResponce object:object userInfo:nil];
 	}
 
 	[json_string release];

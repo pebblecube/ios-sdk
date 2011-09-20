@@ -8,10 +8,10 @@
  */
 
 #pragma once
-#ifndef _CONSTS_H_
-#define _CONSTS_H_
+#ifndef _PCCONSTS_H_
+#define _PCCONSTS_H_
 
-#ifndef RELEASE
+#ifdef DEBUG
 #define Log(format, ...) NSLog(format, ## __VA_ARGS__)
 #else
 #define Log(format, ...)
