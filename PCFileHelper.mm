@@ -14,7 +14,7 @@
 
 + (void) Save:(NSMutableArray*) records
 {
-	Log(@"Loading events in json");
+	Log(@"Saving events in json");
 	SBJsonWriter *writer = [[SBJsonWriter alloc] init];
 	NSError* error = nil;
 	NSMutableArray* dictArray = [[NSMutableArray alloc] init];
@@ -46,7 +46,7 @@
 
 + (void) Load:(NSMutableArray*) records
 {
-	Log(@"Saving events in json");
+	Log(@"Loading events in json");
 	SBJsonParser *parser = [[SBJsonParser alloc] init];
 	NSError* error = nil;
 	

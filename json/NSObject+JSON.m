@@ -37,7 +37,7 @@
     SBJsonWriter *jsonWriter = [SBJsonWriter new];    
     NSString *json = [jsonWriter stringWithObject:self];
     if (!json)
-        Log(@"-JSONRepresentation failed. Error is: %@", jsonWriter.error);
+        NSLog(@"-JSONRepresentation failed. Error is: %@", jsonWriter.error);
     [jsonWriter release];
     return json;
 }
